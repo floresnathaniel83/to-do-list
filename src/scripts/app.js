@@ -1,15 +1,39 @@
-const React = require('react'),
-	ReactDOM = require('react-dom')
+import React from 'react'
+import ReactDOM from 'react-dom'
 
-const app = function() {
+import $ from 'jquery'
+import Backbone from 'backbone'
 
-	const Header = React.createClass({
-		render: () => {
-			return <h1>YOLO</h1>
+Backbone.$ = $
+
+import AllTaskView from './components/AllTaskView.js'
+import {TaskModel, TaskCollection} from './models/taskModel.js'
+
+
+
+var ListRouter = Backbone.Router.extend({
+	
+	routes: {
+		'*default' : 'showAllTaskView',
+
+
+	},
+
+	showAllTaskView: function () {
+		
+		ReactDOM.render(<AllTaskView taskColl = {new TaskCollection()} />, document.querySelector('.container'))
+
+	},	
+
+
+	initialize: function () {
+	
+		Backbone.history.start()
+
+
 		}
-	})
 
-	ReactDOM.render(<Header/>,document.querySelector('.container'))
-}
 
-app()
+})
+
+new ListRouter()

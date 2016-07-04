@@ -3,8 +3,68 @@
 	box-sizing: border-box;
 }
 
-h1 {
-	font-size: 300px;
+$brown: rgb(122, 93, 79);
+$gray: rgb(90, 96, 93); 
+$red: rgb(216, 78, 55);
+
+input {
+    padding: 1%;
+    border: 1px solid #5a605d;
+    transition: .5s border ease;
+    font-size: 18px;
+}
+
+input:focus {
+    outline: none;
+    border: 3px solid $brown;
+}
+
+#headingContainer {
+
+		text-align: center;
+		
+		h1 {
+		
+			font-size: 50px;
+			color: $red;
+		
+		}
+
+}
+
+#AllTaskViewContainer {
+
 	text-align: center;
-	color: fuchsia;
+    margin: 0 auto;
+    width: 80%;
+    border: 10px solid $red;
+
+
+	#taskList {
+
+	    min-height: 100px;
+
+	    .task {
+	        text-align: left;
+	        font-size: 24px;
+	        background: $brown;
+	        padding: 2%;
+	        color: white;
+	        margin: 2%;
+	        position: relative;
+
+	        button {
+	            position: absolute;
+	            right: 2%;
+	            top: 50%;
+	            transform: translateY(-50%);
+	            background: $red;
+	            padding: 1%;
+	            border: none;
+	            font-size: 20px;
+	        }
+	    
+	    }
+
+	}
 }
