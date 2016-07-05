@@ -39,6 +39,17 @@ input:focus {
     width: 80%;
     border: 10px solid $red;
 
+    a {
+        text-decoration: none;
+        padding: 2% 4%;
+        margin: 2% 2% 0 2%;
+        color: $red;
+        background: $brown;
+        border: 5px solid $gray;
+        display: inline-block;
+        border-bottom: none;
+    }
+
 
 	#taskList {
 

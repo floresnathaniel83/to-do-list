@@ -1,9 +1,12 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 
+import Backbone from 'backbone'
+
 import Header from './Header.js'
 import TaskList from './TaskList.js'
 import TaskAdder from './TaskAdder.js'
+import Tab from './Tab.js'
 
 var AllTaskView = React.createClass({
 	
@@ -11,18 +14,30 @@ var AllTaskView = React.createClass({
         
         return{
             
-            taskColl: this.props.taskColl
+            taskColl: this.props.taskColl,
+            taskViewType: 'all'
         }
     },
     
     componentWillMount: function(){
-        
-        this.props.taskColl.on('update', () => { 
-            
-            this.setState({
+
+    	var updater = () => {
+    		this.setState({
                 
                 taskColl: this.state.taskColl
             })
+
+		}
+        
+        this.props.taskColl.on('update', updater)
+		Backbone.Events.on ('changeTaskList', updater)
+        Backbone.Events.on('updateTaskView', (taskViewType) => {
+			this.setState({
+
+        		taskViewType: taskViewType
+
+        	})
+
         })
     },
 
@@ -43,7 +58,9 @@ var AllTaskView = React.createClass({
 				<div id = "AllTaskViewContainer">
 					<Header />
 					<TaskAdder _addTaskFromAllTaskView = {this._addTask}  /> 
+					<Tab />
 					<TaskList taskColl = {this.state.taskColl} />
+
 				</div>
 
 			)

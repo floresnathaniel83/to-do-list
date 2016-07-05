@@ -34,6 +34,16 @@ var Task = React.createClass ({
 
 			}
 	},
+
+	_changeTaskList: function (eventObj) {
+		this.props.taskModel.set ({
+			task: eventObj.target.value
+
+
+		})
+		Backbone.Events.trigger('changeTaskList')
+
+	},
 	
 	_handleToggleCheck: function () {
 		if(this.state.isShowing === true){
@@ -63,7 +73,7 @@ var Task = React.createClass ({
 				<div className = "task">
 
 					<span className = "taskToDo">{this.props.taskModel.get('task')}</span>
-					<button onClick = {this._handleToggleCheck}>{buttonLabel}</button>
+					<button onChange = {this._changeTaskList} onClick = {this._handleToggleCheck}>{buttonLabel}</button>
 
 				</div>
 		)
