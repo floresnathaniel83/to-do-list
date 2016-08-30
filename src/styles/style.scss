@@ -47,7 +47,7 @@ input:focus {
         background: $brown;
         border: 5px solid $gray;
         display: inline-block;
-        border-bottom: none;
+ 
     }
 
 
@@ -64,7 +64,7 @@ input:focus {
 	        margin: 2%;
 	        position: relative;
 
-	        button {
+	        button#check {
 	            position: absolute;
 	            right: 2%;
 	            top: 50%;
@@ -73,6 +73,18 @@ input:focus {
 	            padding: 1%;
 	            border: none;
 	            font-size: 20px;
+	        }
+
+	        button#delete {
+	        	position: absolute;
+	            right: 8%;
+	            top: 50%;
+	            transform: translateY(-50%);
+	            background: $red;
+	            padding: 1%;
+	            border: none;
+	            font-size: 20px;
+
 	        }
 	    
 	    }

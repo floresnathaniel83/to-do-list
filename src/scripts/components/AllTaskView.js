@@ -12,8 +12,7 @@ var AllTaskView = React.createClass({
 	
 	getInitialState: function(){ 
         
-        return{
-            
+        return {
             taskColl: this.props.taskColl,
             taskViewType: 'all'
         }
@@ -23,8 +22,8 @@ var AllTaskView = React.createClass({
 
     	var updater = () => {
     		this.setState({
-                
                 taskColl: this.state.taskColl
+
             })
 
 		}
@@ -33,11 +32,8 @@ var AllTaskView = React.createClass({
 		Backbone.Events.on ('changeTaskList', updater)
         Backbone.Events.on('updateTaskView', (taskViewType) => {
 			this.setState({
-
         		taskViewType: taskViewType
-
         	})
-
         })
     },
 
@@ -45,13 +41,22 @@ var AllTaskView = React.createClass({
 	_addTask: function (taskToDo) {
 
 		this.props.taskColl.add({
-			
 			task: taskToDo
+
 		}) 
 
 	},
 
 	render: function () {
+		//by default, pass down the whole collection
+		var collectionToPass = this.state.taskColl
+
+		// if we're filtering tasks, then pass down only a subset of the coll
+		if (this.state.taskViewType !== 'all') {
+			// this is where you find a way to filter the models according to the criteria object
+			// input to .where().
+			collectionToPass = this.state.taskColl.where({})
+		}
 		
 		return (
 				
@@ -59,7 +64,7 @@ var AllTaskView = React.createClass({
 					<Header />
 					<TaskAdder _addTaskFromAllTaskView = {this._addTask}  /> 
 					<Tab />
-					<TaskList taskColl = {this.state.taskColl} />
+					<TaskList taskColl={collectionToPass} />
 
 				</div>
 

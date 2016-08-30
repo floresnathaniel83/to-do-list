@@ -1,4 +1,5 @@
 import React from 'react'
+import Backbone from 'backbone'
 
 var TaskList = React.createClass ({
 	
@@ -12,9 +13,7 @@ var TaskList = React.createClass ({
 	render: function () {
 		
 		return (
-				
 				<ul id = "taskList">
-					
 					{this._getTaskComponent(this.props.taskColl)}
 
 				</ul>
@@ -27,41 +26,37 @@ var TaskList = React.createClass ({
 })
 
 var Task = React.createClass ({
-
-	getInitialState: function () {
-		return {
-				isShowing: false
-
-			}
-	},
-
-	_changeTaskList: function (eventObj) {
-		this.props.taskModel.set ({
-			task: eventObj.target.value
-
-
-		})
-		Backbone.Events.trigger('changeTaskList')
+	_handleDeleteTask: function () {
+		this.props.taskModel.destroy()
 
 	},
-	
+
 	_handleToggleCheck: function () {
-		if(this.state.isShowing === true){
-      		this.setState({
-        		isShowing: false
+		console.log(this.props.taskModel.get('done'))
+		if(this.props.taskModel.get('done')) {
+      		this.props.taskModel.set({
+      			done: false
       		})
 	    } else {
-	      this.setState({
-	        isShowing: true
-	      })
-	    }   
+		  this.props.taskModel.set({
+		  	done: true
+
+		  })
+	    }
+	    Backbone.Events.trigger('changeTaskList')  
+
 	  },
 
 	render: function () {
 
+		if(!this.props.taskModel.get('done')){
+			var styleObj = {display : 'none'}
+
+		}
+
     	var buttonLabel
 
-	    if(this.state.isShowing){
+	    if(this.props.taskModel.get('done')){
 	      buttonLabel = <i className = "fa fa-check"></i>
 	   
 	    } else {
@@ -72,8 +67,9 @@ var Task = React.createClass ({
 		return (
 				<div className = "task">
 
-					<span className = "taskToDo">{this.props.taskModel.get('task')}</span>
-					<button onChange = {this._changeTaskList} onClick = {this._handleToggleCheck}>{buttonLabel}</button>
+					<span className = "taskToDo">{this.props.taskModel.get('task')} </span>
+					<button id='check' onChange = {this._changeTaskList} onClick={this._handleToggleCheck}> {buttonLabel} </button>
+					<button style = {styleObj} id='delete' onClick={this._handleDeleteTask}>X</button>
 
 				</div>
 		)

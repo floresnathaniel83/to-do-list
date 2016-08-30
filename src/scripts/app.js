@@ -14,6 +14,9 @@ import {TaskModel, TaskCollection} from './models/taskModel.js'
 var ListRouter = Backbone.Router.extend({
 	
 	routes: {
+		'task/all' : 'showAllTaskView',
+		'task/done' : 'showDoneTaskView',
+		'task/undone' : 'showUndoneTaskView',
 		'*default' : 'showAllTaskView',
 
 
@@ -24,6 +27,17 @@ var ListRouter = Backbone.Router.extend({
 		ReactDOM.render(<AllTaskView taskColl = {new TaskCollection()} />, document.querySelector('.container'))
 
 	},	
+
+	showDoneTaskView: function () {
+
+		ReactDOM.render(<DoneTaskView />, document.querySelector('.container'))
+	},
+
+	showUndoneTaskView: function () {
+
+		ReactDOM.render(<UndoneTaskView />, document.querySelector('.container'))
+
+	},
 
 
 	initialize: function () {
